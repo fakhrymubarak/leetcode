@@ -1,16 +1,6 @@
 package org.fakhry.leetcode.arrays_hashing
 
 /**
- * Intuition :
- * To check anagram, count each character inside the 2 string. If the counter is same, then it is anagram.
- * We use hashmap to put the char as a key, and the counter as the map value.
- *
- *
- * Approach :
- * - Create 2 hashmap for 2 strings
- * - Iterate each strings and put the char and its counter to the hashmap
- * - Compare both hashmap
- *
  * Time Complexity :
  * O(n + m) - iterate twice for both strings
  *
@@ -33,4 +23,32 @@ fun isAnagram(s: String, t: String): Boolean {
     }
 
     return hashMapS == hashMapT
+}
+
+/**
+ * Time Complexity:
+ * O(n) - Iterates through the strings `s` and `t` twice: once to populate the frequency arrays and once to compare them.
+ *
+ * Space Complexity:
+ * O(1) - Uses constant space for the two frequency arrays of size 26.
+ */
+fun isAnagramOptimized(s: String, t: String): Boolean {
+    if (s.length != t.length) return false
+    val arrayS = IntArray(26)
+    val arrayT = IntArray(26)
+
+
+    for (i in s.indices) {
+        val indexS = s[i] - 'a'
+        val indexT = t[i] - 'a'
+
+        arrayS[indexS] += 1
+        arrayT[indexT] += 1
+    }
+
+    for (i in 0..25) {
+        if (arrayS[i] != arrayT[i]) return false
+    }
+
+    return true
 }
