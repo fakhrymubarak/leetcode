@@ -76,3 +76,76 @@ class IsomorphicStringsTest {
         assertFalse(isIsomorphic(s, t)) // Multiple characters in `s` map to the same character in `t`
     }
 }
+
+class IsomorphicStringsOptimizedTest {
+
+    @Test
+    fun `test with isomorphic strings`() {
+        val s = "egg"
+        val t = "add"
+        assertTrue(isIsomorphicOptimized(s, t))
+    }
+
+    @Test
+    fun `test with isomorphic strings 2`() {
+        val s = "paper"
+        val t = "title"
+        assertTrue(isIsomorphicOptimized(s, t))
+    }
+
+    @Test
+    fun `test with isomorphic strings 3`() {
+        val s = "abc"
+        val t = "xyz"
+        assertTrue(isIsomorphicOptimized(s, t))
+    }
+
+    @Test
+    fun `test with non-isomorphic strings`() {
+        val s = "foo"
+        val t = "bar"
+        assertFalse(isIsomorphicOptimized(s, t))
+    }
+
+    @Test
+    fun `test with single character strings`() {
+        val s = "a"
+        val t = "b"
+        assertTrue(isIsomorphicOptimized(s, t))
+    }
+
+    @Test
+    fun `test with identical strings`() {
+        val s = "abc"
+        val t = "abc"
+        assertTrue(isIsomorphicOptimized(s, t))
+    }
+
+    @Test
+    fun `test with repeating characters`() {
+        val s = "aab"
+        val t = "xxy"
+        assertTrue(isIsomorphicOptimized(s, t))
+    }
+
+    @Test
+    fun `test with mismatched repeating patterns`() {
+        val s = "aab"
+        val t = "xyz"
+        assertFalse(isIsomorphicOptimized(s, t))
+    }
+
+    @Test
+    fun `test with empty strings`() {
+        val s = ""
+        val t = ""
+        assertTrue(isIsomorphicOptimized(s, t)) // Empty strings are trivially isomorphic
+    }
+
+    @Test
+    fun `test with overlapping mappings`() {
+        val s = "ab"
+        val t = "aa"
+        assertFalse(isIsomorphicOptimized(s, t)) // Multiple characters in `s` map to the same character in `t`
+    }
+}
