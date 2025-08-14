@@ -1,5 +1,8 @@
 package org.fakhry.leetcode.arrays_hashing
 
+import java.util.*
+import kotlin.collections.HashMap
+
 /**
  * Time Complexity:
  * O(n + m) - where `n` is the size of `nums1` and `m` is the size of `nums2`.
@@ -45,4 +48,39 @@ private fun HashMap<Int, Int>.findGreaterReference(startKey: Int, currentValue: 
     }
 
     return if (currentKey != startKey) currentKey else -1
+}
+
+/**
+ * Time Complexity:
+ * O(n + m) - where `n` is the size of `nums1` and `m` is the size of `nums2`.
+ * - Building the map takes O(n).
+ * - Traversing `nums2` takes O(m), with each element pushed/popped from the stack once.
+ *
+ * Space Complexity:
+ * O(m) - Uses a stack to store elements and a map to store indices, with the stack holding at most `m` elements.
+ *
+ */
+fun nextGreaterElementWithStack(nums1: IntArray, nums2: IntArray): IntArray {
+    val stack = Stack<Int>()
+    val mapOfValueAndIndex = hashMapOf<Int, Int>()
+
+    nums1.forEachIndexed { index, value ->
+        mapOfValueAndIndex[value] = index
+    }
+
+    for (num in nums2) {
+        while (stack.isNotEmpty() && mapOfValueAndIndex.containsKey(stack.peek()) && stack.peek() < num) {
+            val nums1Value = stack.pop()
+            nums1[mapOfValueAndIndex[nums1Value]!!] = num
+        }
+
+        if (mapOfValueAndIndex.containsKey(num)) stack.push(num)
+    }
+
+    while (stack.isNotEmpty()) {
+        val nums1Value = stack.pop()
+        nums1[mapOfValueAndIndex[nums1Value]!!] = -1
+    }
+
+    return nums1
 }
